@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Connexion WhatsApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="font-family: sans-serif; text-align: center; padding: 50px;">
+  <h1>Connexion WhatsApp</h1>
+  <p>Cliquez ci-dessous pour connecter votre compte WhatsApp Business.</p>
+
+  <!-- Bouton -->
+  <button id="whatsapp-connect" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+    📲 Connecter WhatsApp
+  </button>
+
+  <!-- SDK Meta -->
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/fr_FR/sdk.js"></script>
+
+  <script>
+    // Initialisation SDK
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '1512018290158731', // << Remplace par ton App ID Meta
+        autoLogAppEvents: true,
+        xfbml: false,
+        version: 'v21.0'
+      });
+    };
+
+    // Clic bouton
+    document.getElementById('whatsapp-connect').addEventListener('click', function () {
+      FB.login(function (response) {
+        if (response.authResponse) {
+          console.log('Connexion réussie :', response);
+          // Ici tu peux récupérer le code et l’envoyer à ton serveur/n8n
+        } else {
+          console.log('Connexion annulée ou refusée.');
+        }
+      }, {
+        scope: 'whatsapp_business_management,whatsapp_business_messaging'
+      });
+    });
+  </script>
+</body>
+</html>
